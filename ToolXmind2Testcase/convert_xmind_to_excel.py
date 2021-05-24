@@ -1,7 +1,18 @@
 import pandas as pd
 import os
+import sys,click
 from xmindparser import xmind_to_dict
 
+@click.command()
+@click.option('-x', '--xmindpath', 'xmindpath', required=True, help='xmind file path')
+@click.option('-e', '--excelpath', 'excelpath', required=True, help='excel file path')
+@click.option('-i', '--ignorelayer', 'ignorelayer', required=False, default='0')
+def convert(xmindpath, excelpath, ignorelayer):
+    if ignorelayer == '0':
+        ConvertXmindToExcel().convert(xmindpath, excelpath)
+    else:
+        ConvertXmindToExcel().convert(xmindpath, excelpath, ignorelayer)
+    sys.exit()
 
 class ConvertXmindToExcel:
     def __init__(self):
