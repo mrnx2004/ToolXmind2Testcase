@@ -60,9 +60,8 @@ class ConvertXmindToExcel:
                 result_dict[key] = self.markdown_dict[key]
         return result_dict
 
-
-    # 将多个xmind转换为单个excel文件
     def convert_multiple_file(self, xmind_path, excel_file_path, ignore_layer_number):
+        # 将多个xmind转换为单个excel文件
         xmind_dir = os.walk(xmind_path)
         for path, dir_list, file_list in xmind_dir:
             for file_name in file_list:
@@ -100,6 +99,9 @@ class ConvertXmindToExcel:
         self.analyze(content_array, object)
 
     def analyze(self, content_array, topic_object):
+        topic_labels = topic_object.setdefault('labels', None)
+        if topic_labels and 'remove' in topic_labels:
+            return
         content_array[self.index] = topic_object['title']
         if 'topics' not in topic_object.keys() or len(topic_object['topics']) == 0:
             # 碰到叶子节点，解析一行内容，行数加一
@@ -122,6 +124,9 @@ class ConvertXmindToExcel:
                 if len(self.markdown_dict[column_name]) >= self.line_number:
                     print(f'出现重复属性，contentArray:{content_array}')
                     continue
+                # 在添加属性之前，必须确保之前的列全部被填满
+                while len(self.markdown_dict[column_name]) < self.line_number-1:
+                    self.markdown_dict[column_name].append('')
                 self.markdown_dict[column_name].append(column_value.strip())
             else:
                 # 否则则将其作为标题层级进行解析
