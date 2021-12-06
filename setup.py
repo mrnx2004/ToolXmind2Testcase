@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ToolXmind2Testcase",  # 项目名称，保证它的唯一性，不要跟已存在的包名冲突即可
-    version="0.0.10",
+    version="0.0.12",
     author="xu.nie",  # 项目作者
     author_email="xu.nie@shopee.com",
     description="脑图转换为Excel",  # 项目的一句话描述
@@ -27,6 +27,7 @@ setuptools.setup(
     install_requires=[
         'xmindparser',
         'pandas',
-        'click'
+        'click',
+        'xlsxwriter'
     ]
 )
