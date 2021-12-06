@@ -73,6 +73,13 @@ class ConvertXmindToExcel:
             df = pd.DataFrame(self.order_dict())
             writer = pd.ExcelWriter(excel_file_path, engine='xlsxwriter')
             df.to_excel(writer, sheet_name='case_data', index=False)
+            worksheet = writer.sheets['case_data']
+            wrap_format = writer.book.add_format({'text_wrap': True})
+            worksheet.set_column(df.columns.get_loc('特性层级'), df.columns.get_loc('特性层级'), 50)
+            worksheet.set_column(df.columns.get_loc('用例标题'), df.columns.get_loc('用例标题'), 50)
+            worksheet.set_column(df.columns.get_loc('用例标题'), df.columns.get_loc('用例标题'), 70, wrap_format)
+            worksheet.set_column(df.columns.get_loc('测试步骤'), df.columns.get_loc('测试步骤'), 70, wrap_format)
+            worksheet.set_column(df.columns.get_loc('预期结果'), df.columns.get_loc('预期结果'), 70, wrap_format)
             writer.save()
 
     # 将单个xmind转换为单个excel文件
@@ -83,6 +90,13 @@ class ConvertXmindToExcel:
             df = pd.DataFrame(self.order_dict())
             writer = pd.ExcelWriter(excel_path, engine='xlsxwriter')
             df.to_excel(writer, sheet_name='case_data', index=False)
+            worksheet = writer.sheets['case_data']
+            wrap_format = writer.book.add_format({'text_wrap': True})
+            worksheet.set_column(df.columns.get_loc('特性层级'), df.columns.get_loc('特性层级'), 50)
+            worksheet.set_column(df.columns.get_loc('用例标题'), df.columns.get_loc('用例标题'), 50)
+            worksheet.set_column(df.columns.get_loc('用例标题'), df.columns.get_loc('用例标题'), 70, wrap_format)
+            worksheet.set_column(df.columns.get_loc('测试步骤'), df.columns.get_loc('测试步骤'), 70, wrap_format)
+            worksheet.set_column(df.columns.get_loc('预期结果'), df.columns.get_loc('预期结果'), 70, wrap_format)
             writer.save()
         finally:
             self.index = 0
