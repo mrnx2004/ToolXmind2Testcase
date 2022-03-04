@@ -86,6 +86,7 @@ class ConvertXmindToExcel:
     def convert_single_file(self, xmind_path, excel_path, ignore_layer_number):
         try:
             self.ignore_layer_number = int(ignore_layer_number)
+            self.markdown_dict = collections.defaultdict(list)
             self.parseXmindToDict(xmind_path)
             df = pd.DataFrame(self.order_dict())
             writer = pd.ExcelWriter(excel_path, engine='xlsxwriter')
