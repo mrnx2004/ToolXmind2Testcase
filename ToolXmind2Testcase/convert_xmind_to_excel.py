@@ -132,6 +132,9 @@ class ConvertXmindToExcel:
         title = ''
         for i in range(self.index + 1):
             content = content_array[i]
+            if content is None:
+                print(f'存在空节点，请检查{content_array}中是否存在空')
+                raise Exception('存在空节点')
             content = content.replace('\b', '')
             is_prop, column_name, column_value = self.check_in_column(content)
             if is_prop:
